@@ -1,0 +1,59 @@
+ {% extends 'base.html' %}
+ {% block title %} Home {% endblock title %}
+ {% block table %}
+  
+ 
+    <div class="container my-4">
+      <h1>add a todo</h1>
+      <form action="/" method="POST">
+        <div class="form-group">
+          <label for="title">Todo title</label>
+          <input type="text" class="form-control" name="title" id="title"  aria-describedby="title">
+          <small id="title" class="form-text text-muted" name="title">Add your Task</small>.</small>
+        </div>
+        <div class="form-group">
+          <label for="desc">Todo Discription</label>
+          <input type="text" class="form-control" name="desc" id="desc">
+        </div>
+      
+        <button type="submit" class="btn btn-outline-dark">Submit</button>
+      </form>
+    </div>
+    <div class="container my-4">
+      <h1>My todo</h1>
+      
+            {% if allTodo|length==0 %}   
+            <div class="alert alert-dark" role="alert">
+              Add yours daily tasks
+            </div>
+              {% else %}
+              <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">Sno</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Date&Time</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+          {% for todo in allTodo %}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+             
+            <td>{{todo.title}}</td>
+            <td>{{todo.desc}}</td>
+            <td>{{todo.date_created}}</td>
+            <td><a href="/update/{{todo.sno}}" type="button" class="btn btn-outline-light btn-sm mx-0.1">Update</button>
+            <td><a href="/delete/{{todo.sno}}" type="button" class="btn btn-outline-light btn-sm mx-0.1">Delet</button>
+            </td>
+          </tr>
+        </tbody>
+      
+          {% endfor %}
+          {% endif %} 
+        </table>
+      
+    </div>
+  {% endblock table %}
